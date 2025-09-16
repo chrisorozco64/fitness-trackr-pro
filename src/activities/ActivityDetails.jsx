@@ -1,11 +1,10 @@
-import { useParams, Link, useNavigate } from "react-router";
+import { useParams } from "react-router";
 import useQuery from "../api/useQuery";
 import useMutation from "../api/useMutation";
 import { useAuth } from "../auth/AuthContext";
 
 export default function ActivityDetails() {
   const { id } = useParams();
-  const navigate = useNavigate();
   const {
     data: activity,
     error,
@@ -33,21 +32,16 @@ export default function ActivityDetails() {
     <section>
       <h2>{activity.name}</h2>
       <p>{activity.description}</p>
-  {token && (
-  <button
-    onClick={async () => {
-      await deleteActivity();
-      navigate("/");
-    }}
-  >
-    {deleteLoading
-      ? "Deleting"
-      : deleteError
-      ? deleteError
-      : "Delete"
+      {token && (
+        <button onClick={() => deleteActivity()}>
+          {deleteLoading
+            ? "Deleting"
+            : deleteError
+            ? deleteError
+            : "Delete"
+          }
+        </button>
+      )}
+          </section>
+        );
     }
-  </button>
-)}
-    </section>
-  );
-}
